@@ -17,6 +17,7 @@ public:
 	bool Bottom();//
 	bool Pop(char&);//pop out of the stack
 	bool Push(char);//push into the stack
+	int GetSize();
 	~Stack();
 
 };

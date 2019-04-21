@@ -67,6 +67,12 @@ bool Stack::Push(char ch)
 }
 
 
+int Stack::GetSize()
+{
+	return size;
+}
+
+
 Stack::~Stack()
 {
 	delete []head;
@@ -89,7 +95,9 @@ bool SignStack::Compare(char ch)
 {
 	if((ch == '+' || ch == '-') && head[size-1] == '#')
 		return true;
-	else 
+	else if(ch == '*' || ch == '/')
+		return true;
+	else
 		return false;
 }
 

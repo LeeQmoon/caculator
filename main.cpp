@@ -10,28 +10,30 @@ double Result(NumberStack& number, SignStack& sign, bool flag)
 {
 	double temp[5] = {0, 0, 0, 0, 0};//have to initialize
 	bool check[3] = {false, false, false};
-	int count;
+	int count[3] = {0, 0, 0};
 	int k;
 	char ch;
 	for(int i = 0; i < 2; i++)
 	{
-		count = 0;
 		k = 1;
-		
 		while((number.Pop(ch)) && (ch != '#'))
 		{
 			if(ch == '.')
+			{
 				check[i] = true;
+				continue;
+			}
 			if(!check[i])
-				count++;
+				count[i]++;
 			temp[i] += (ch - '0')*k;
 			k *= 10;
 		}
 	}
-
+	number.Push('#');
+	
 	for(int i = 0; i < 2; i++)
 		if(check[i])
-			temp[i] /= pow(10, count);
+			temp[i] /= pow(10, count[i]);
 	
 	double result;
 	sign.Pop(ch);
@@ -42,6 +44,12 @@ double Result(NumberStack& number, SignStack& sign, bool flag)
 			break;
 		case '-':
 			result = temp[1] - temp[0];
+			break;
+		case '*':
+			result = temp[1] * temp[0];
+			break;
+		case '/':
+			result = temp[1] / temp[0];
 			break;
 	}
 	if(flag)
@@ -54,7 +62,6 @@ double Result(NumberStack& number, SignStack& sign, bool flag)
 		ss >> transform;
 		for(int i = 0; i < transform.length(); i++)
 			number.Push(transform[i]);
-		cout << transform << endl;
 
 		return result;
 	}
@@ -79,12 +86,23 @@ int main()
 			num++;
 			if(num == str.length())
 			{
-				cout << Result(number, sign, true);
+				while((sign.GetSize()) >= 2)
+				{
+					if(sign.GetSize() == 2)
+					{
+						cout << Result(number, sign, true) << endl;
+					}
+					else
+					{
+						Result(number, sign, false);
+					}
+				}
+
 				system("pause");
 				return 0;
 			}
 		}
-		else if(ch == '+' || ch == '-')
+		else if(ch == '+' || ch == '-' || ch == '*' || ch == '/')
 		{
 			if(sign.Compare(ch))
 			{
