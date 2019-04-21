@@ -6,20 +6,16 @@
 using namespace std;
 
 
-double Result(NumberStack& number, SignStack& sign, bool flag)
-{
+double Result(NumberStack& number, SignStack& sign, bool flag){
 	double temp[5] = {0, 0, 0, 0, 0};//have to initialize
 	bool check[3] = {false, false, false};
 	int count[3] = {0, 0, 0};
 	int k;
 	char ch;
-	for(int i = 0; i < 2; i++)
-	{
+	for(int i = 0; i < 2; i++){
 		k = 1;
-		while((number.Pop(ch)) && (ch != '#'))
-		{
-			if(ch == '.')
-			{
+		while((number.Pop(ch)) && (ch != '#')){
+			if(ch == '.'){
 				check[i] = true;
 				continue;
 			}
@@ -37,8 +33,7 @@ double Result(NumberStack& number, SignStack& sign, bool flag)
 	
 	double result;
 	sign.Pop(ch);
-	switch(ch)
-	{
+	switch(ch){
 		case '+':
 			result = temp[1] + temp[0];
 			break;
@@ -54,8 +49,7 @@ double Result(NumberStack& number, SignStack& sign, bool flag)
 	}
 	if(flag)
 		return result;
-	else
-	{
+	else{
 		stringstream ss;
 		string transform;
 		ss << result;
@@ -68,8 +62,7 @@ double Result(NumberStack& number, SignStack& sign, bool flag)
 }
 
 
-int main()
-{
+int main(){
 	NumberStack number;
 	SignStack sign;
 	string str = "";
@@ -77,23 +70,17 @@ int main()
 	sign.Push('#');
 	int num = 0;
 
-	while(num != str.length())
-	{
+	while(num != str.length()){
 		char ch = str[num];
-		if((ch >= '0' && ch <= '9') || ch == '.')
-		{
+		if((ch >= '0' && ch <= '9') || ch == '.'){
 			number.Push(ch);
 			num++;
-			if(num == str.length())
-			{
-				while((sign.GetSize()) >= 2)
-				{
-					if(sign.GetSize() == 2)
-					{
+			if(num == str.length()){
+				while((sign.GetSize()) >= 2){
+					if(sign.GetSize() == 2){
 						cout << Result(number, sign, true) << endl;
 					}
-					else
-					{
+					else{
 						Result(number, sign, false);
 					}
 				}
@@ -102,16 +89,13 @@ int main()
 				return 0;
 			}
 		}
-		else if(ch == '+' || ch == '-' || ch == '*' || ch == '/')
-		{
-			if(sign.Compare(ch))
-			{
+		else if(ch == '+' || ch == '-' || ch == '*' || ch == '/'){
+			if(sign.Compare(ch)){
 				sign.Push(ch);
 				num++;
 				number.Push('#');
 			}
-			else
-			{
+			else{
 				Result(number, sign, false);
 			}
 		}
