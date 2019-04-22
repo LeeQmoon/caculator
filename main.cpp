@@ -69,6 +69,7 @@ int main(){
 	cin >> str;
 	sign.Push('#');
 	int num = 0;
+	bool test_sign_tail = true;
 
 	while(num != str.length()){
 		char ch = str[num];
@@ -89,13 +90,43 @@ int main(){
 				return 0;
 			}
 		}
-		else if(ch == '+' || ch == '-' || ch == '*' || ch == '/'){
+		else if(ch == '('){
+			sign.Push(ch);
+			sign.Push('$');
+			num++;
+		}
+		else if(ch == ')'){
+			num++;
+			if(num == str.length()){
+				while((sign.GetSize()) >= 2){
+					if(sign.GetSize() == 2)
+						cout << Result(number, sign, true) << endl;
+					else if(test_sign_tail){
+						Result(number, sign, false);
+						test_sign_tail = false;
+						sign.Pop(ch);
+						sign.Pop(ch);
+					}
+						else 
+							Result(number, sign, false);
+				}
+
+				system("pause");
+				return 0;
+			}
+			else{
+				Result(number, sign, false);
+				sign.Pop(ch);
+				sign.Pop(ch);
+			}
+		}
+		else if(ch == '+' || ch == '-' || ch == '*' || ch == '/'){//优先级高的
 			if(sign.Compare(ch)){
 				sign.Push(ch);
 				num++;
 				number.Push('#');
 			}
-			else{
+			else{//优先级不够高
 				Result(number, sign, false);
 			}
 		}

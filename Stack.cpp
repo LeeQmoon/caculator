@@ -2,24 +2,21 @@
 #include<iostream>
 using namespace std;
 
-Stack::Stack()
-{
+Stack::Stack(){
 	maxsize = 100;
 	head = new char[100];
 	size = 0;
 }
 
 
-void Stack::Print()
-{
+void Stack::Print(){
 	for (int i = 0; i < size; i++)
 		cout << head[i] << " ";
 	cout << endl;
 }
 
 
-bool Stack::Bottom()
-{
+bool Stack::Bottom(){
 	if (size == 0)
 		return true;
 	else
@@ -27,8 +24,7 @@ bool Stack::Bottom()
 }
 
 
-bool Stack::Top()
-{
+bool Stack::Top(){
 	if (size > maxsize)
 		return true;
 	else
@@ -36,64 +32,52 @@ bool Stack::Top()
 }
 
 
-bool Stack::Pop(char& ch)
-{
-	if (this->Bottom())
-	{
+bool Stack::Pop(char& ch){
+	if (this->Bottom()){
 		cout << "The stack is on the bottom!" << endl;
 		return false; 
 	}
-	else
-	{
+	else{
 		ch = head[--size];
 		return true;
 	}
-
 }
 
 
-bool Stack::Push(char ch)
-{
-	if (this->Top())
-	{
+bool Stack::Push(char ch){
+	if (this->Top()){
 		cout << "The size of the stack has reached the maxsize!" << endl;
 		return false;
 	}
-	else
-	{
+	else{
 		head[size++] = ch;
 		return true;
 	}
 }
 
 
-int Stack::GetSize()
-{
+int Stack::GetSize(){
 	return size;
 }
 
 
-Stack::~Stack()
-{
+Stack::~Stack(){
 	delete []head;
 }
 
 
-NumberStack::NumberStack()
-{
+NumberStack::NumberStack(){
 	
 }
 
 
-SignStack::SignStack()
-{
+SignStack::SignStack(){
 
 }
 
 
-bool SignStack::Compare(char ch)
-{
-	if((ch == '+' || ch == '-') && head[size-1] == '#')
+bool SignStack::Compare(char ch){
+	if((ch == '+' || ch == '-') && (head[size-1] == '#' || head[size-1] == '$'))
 		return true;
 	else if(ch == '*' || ch == '/')
 		return true;
