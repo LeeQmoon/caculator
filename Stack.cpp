@@ -77,7 +77,11 @@ SignStack::SignStack(){
 
 
 bool SignStack::Compare(char ch){
+<<<<<<< HEAD
 	if((ch == '+' || ch == '-') && (head[size-1] == '#' || head[size-1] == '('))
+=======
+	if((ch == '+' || ch == '-') && (head[size-1] != '#' && head[size-1] != '('))
+>>>>>>> 5aa6fa6b2dac277bf4f9eecd8f1fd94e7ee8e574
 		return true;
 	else if((ch == '*' && (head[size-1] != '*' && head[size-1] != '/')) ||
 	        (ch == '/' && (head[size-1] != '*' && head[size-1] != '/')))
