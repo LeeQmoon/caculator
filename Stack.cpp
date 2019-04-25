@@ -34,7 +34,7 @@ bool Stack::Top(){
 
 bool Stack::Pop(char& ch){
 	if (this->Bottom()){
-		cout << "The stack is on the bottom!" << endl;
+		//cout << "The stack is on the bottom!" << endl;
 		return false; 
 	}
 	else{
@@ -46,7 +46,7 @@ bool Stack::Pop(char& ch){
 
 bool Stack::Push(char ch){
 	if (this->Top()){
-		cout << "The size of the stack has reached the maxsize!" << endl;
+		//cout << "The size of the stack has reached the maxsize!" << endl;
 		return false;
 	}
 	else{
@@ -77,7 +77,7 @@ SignStack::SignStack(){
 
 
 bool SignStack::Compare(char ch){
-	if((ch == '+' || ch == '-') && (head[size-1] != '#' || head[size-1] != '('))
+	if((ch == '+' || ch == '-') && (head[size-1] == '#' || head[size-1] == '('))
 		return true;
 	else if((ch == '*' && (head[size-1] != '*' && head[size-1] != '/')) ||
 	        (ch == '/' && (head[size-1] != '*' && head[size-1] != '/')))

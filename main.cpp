@@ -13,6 +13,11 @@ double GetResult(NumberStack& number, SignStack& sign);//取得结果
 
 
 int main(){
+	int history[100];//记录每个式子的结果
+	int history_amount = 0;//累计记录的个数
+	memset(history, 0, sizeof(history));//initialize
+	history_amount++;//初始化第一个为0, 从第二个开始保存
+
 	while(true){
 		NumberStack number;//存放数字的栈
 		SignStack sign;//存放运算符的栈
@@ -21,6 +26,11 @@ int main(){
 		cin >> str;//每一次输入的要计算的式子
 		int num = 0;//记录字符串中已经被取出的字符
 		int length = str.length();
+		int count = 0;//记录'('的个数，避免')'的输入超过阈值
+		if(str[0] == '+' || str[0] == '-' || str[0] == '*' || str[0] == '/'){
+			SaveResultToStack(history[history_amount - 1], number);
+			number.Push('#');
+		}
 
 		//判断条件: 计算式子的字符是否被完全取出以及运算符栈是否只剩下分隔符'#'
 		while(num != length || sign.GetSize() > 0){
@@ -53,25 +63,37 @@ int main(){
 				}
 				else if(ch == '('){//如果遇到左括号'('，则直接存入运算符栈
 						sign.Push(ch);
+						count++;
 						num++;
 				}
 				else if(ch == ')'){//遇到右括号')'，则直接计算结果
-						int check = GetResult(number, sign);
-						if(check == 0)
-							sign.Pop(ch);
-						if(check == 1);
-						num++;
+						if(count > 0){//如果数目还少继续
+							int check = GetResult(number, sign);
+							if(check == 0)
+								sign.Pop(ch);
+							if(check == 1);
+								num++;
+						count--;
+						}
+						else//如果已经足够了，就直接跳多余的
+							num++;
 				}
 			}
 			else{//情况二: 字符串完全被取出了
 				while(sign.GetSize() > 0)//判断: 运算符栈是否为空
-					if(sign.GetSize() == 1)
-						cout << "getresult: " << GetResult(number, sign) << endl;
+					if(sign.GetSize() == 1){
+						history[history_amount++] = GetResult(number, sign);
+						//cout << "getresult: " << history[history_amount-1] << endl;
+					}
 					else 
 						GetResult(number, sign);//计算结果
 			}
 		}
+		for(int i = 0; i < history_amount; i++)
+	 		cout << "history: " << history[i] <<" " ;
+			cout <<endl;
 	}
+
 	system("pause");
 	return 0;
 }
