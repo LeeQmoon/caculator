@@ -12,12 +12,11 @@ protected:
 
 public:
 	Stack();
+	int GetSize();
 	bool Top();
-	void Print();
 	bool Bottom();//
 	bool Pop(char&);//pop out of the stack
 	bool Push(char);//push into the stack
-	int GetSize();
 	~Stack();
 
 };
@@ -35,5 +34,4 @@ class SignStack :public Stack {
 public:
 	SignStack();
 	bool Compare(char);//compare the sign with the prio
-	
 };

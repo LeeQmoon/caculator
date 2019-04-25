@@ -73,7 +73,7 @@ int main(){
 								sign.Pop(ch);
 							if(check == 1);
 								num++;
-						count--;
+							count--;
 						}
 						else//如果已经足够了，就直接跳多余的
 							num++;
@@ -81,7 +81,7 @@ int main(){
 			}
 			else{//情况二: 字符串完全被取出了
 				while(sign.GetSize() > 0)//判断: 运算符栈是否为空
-					if(sign.GetSize() == 1){
+				if(sign.GetSize() == 1){
 						history[history_amount++] = GetResult(number, sign);
 						//cout << "getresult: " << history[history_amount-1] << endl;
 					}
@@ -106,7 +106,6 @@ double TransformDigit(NumberStack& number){
 	char temp = '\0';
 	int k = 1;
 	int value = 0;//无论小数还是整数，都先保存为整数
-
 	while(number.Pop(temp) && temp != '#' && number.GetSize() >= 0){
 		if(temp == '.'){
 			flag = true;//标记为含有小数点
@@ -147,7 +146,6 @@ double Caculate(char ch, NumberStack& number){
 	for(int i = 0; i < 2; i++)//都是二元运算符，就从数字栈执行两大次取出数值
 		temp[i] = TransformDigit(number);
 	number.Push('#');
-
 	switch(ch){
 		case '+':
 			return temp[1] + temp[0];
