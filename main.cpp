@@ -13,7 +13,7 @@ double GetResult(NumberStack& number, SignStack& sign);//取得结果
 
 
 int main(){
-	int history[100];//记录每个式子的结果
+	double history[100];//记录每个式子的结果
 	int history_amount = 0;//累计记录的个数
 	memset(history, 0, sizeof(history));//initialize
 	history_amount++;//初始化第一个为0, 从第二个开始保存
